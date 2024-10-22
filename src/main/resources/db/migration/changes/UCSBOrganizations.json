@@ -12,7 +12,7 @@
                     "not": [
                         {
                             "tableExists": {
-                                "tableName": "UCSBORGANIZATION"
+                                "tableName": "UCSBORGANIZATIONS"
                             }
                         }
                     ]
@@ -21,7 +21,7 @@
                 "changes": [
                     {
                         "createTable": {
-                            "tableName": "UCSBORGANIZATION",
+                            "tableName": "UCSBORGANIZATIONS",
                             "columns": [
                                 {
                                     "column": {
