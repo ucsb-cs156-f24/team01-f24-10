@@ -25,7 +25,7 @@
                             "columns": [
                                 {
                                     "column": {
-                                        "name": "orgCode",
+                                        "name": "ORG_CODE",
                                         "type": "VARCHAR(255)",
                                         "constraints": {
                                             "primaryKey": true,
@@ -35,19 +35,19 @@
                                 },
                                 {
                                     "column": {
-                                        "name": "orgTranslationShort",
+                                        "name": "ORG_TRANSLATION_SHORT",
                                         "type": "VARCHAR(255)"
                                     }
                                 },
                                 {
                                     "column": {
-                                        "name": "orgTranslation",
+                                        "name": "ORG_TRANSLATION",
                                         "type": "VARCHAR(255)"
                                     }
                                 },
                                 {
                                     "column": {
-                                        "name": "inactive",
+                                        "name": "INACTIVE",
                                         "type": "BOOLEAN"
                                     }
                                 }
