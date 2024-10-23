@@ -51,7 +51,7 @@ public class UCSBOrganizationController extends ApiController {
 
     /**
      * This method returns a single ucsborganization.
-     * @param code code of the ucsborganization
+     * @param orgCode code of the ucsborganization
      * @return a single ucsborganization
      */
     @Operation(summary= "Get a single organization")
