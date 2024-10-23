@@ -50,6 +50,22 @@ import jakarta.validation.Valid;
     }
 
     /**
+     * This method returns a single ucsborganization.
+     * @param orgCode code of the ucsborganization
+     * @return a single ucsborganization
+     */
+    @Operation(summary= &quot;Get a single organization&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public UCSBOrganization getById(
+        @Parameter(name=&quot;orgCode&quot;) @RequestParam String orgCode) {
+<span class="fc" id="L62">        UCSBOrganization organization = ucsbOrganizationRepository.findById(orgCode)</span>
+<span class="fc" id="L63">            .orElseThrow(() -&gt; new EntityNotFoundException(UCSBOrganization.class, orgCode));</span>
+
+<span class="fc" id="L65">        return organization;</span>
+    }
+
+    /**
      * This method creates a new ucsborganizations. Accessible only to users with the role &quot;ROLE_ADMIN&quot;.
      * @param orgCode code of the ucsborganizations
      * @param orgTranslationShort short name of the organization
@@ -69,15 +85,15 @@ import jakarta.validation.Valid;
         )
         {
 
-<span class="fc" id="L72">        UCSBOrganization organization = new UCSBOrganization();</span>
-<span class="fc" id="L73">        organization.setOrgCode(orgCode);</span>
-<span class="fc" id="L74">        organization.setOrgTranslationShort(orgTranslationShort);</span>
-<span class="fc" id="L75">        organization.setOrgTranslation(orgTranslation);</span>
-<span class="fc" id="L76">        organization.setInactive(inactive);</span>
+<span class="fc" id="L88">        UCSBOrganization organization = new UCSBOrganization();</span>
+<span class="fc" id="L89">        organization.setOrgCode(orgCode);</span>
+<span class="fc" id="L90">        organization.setOrgTranslationShort(orgTranslationShort);</span>
+<span class="fc" id="L91">        organization.setOrgTranslation(orgTranslation);</span>
+<span class="fc" id="L92">        organization.setInactive(inactive);</span>
 
-<span class="fc" id="L78">        UCSBOrganization savedOrganization = ucsbOrganizationRepository.save(organization);</span>
+<span class="fc" id="L94">        UCSBOrganization savedOrganization = ucsbOrganizationRepository.save(organization);</span>
 
-<span class="fc" id="L80">        return savedOrganization;</span>
+<span class="fc" id="L96">        return savedOrganization;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
