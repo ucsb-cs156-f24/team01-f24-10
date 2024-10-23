@@ -94,41 +94,40 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
     }
 
     @WithMockUser(roles = { "USER" })
-        @Test
-        public void logged_in_user_can_get_all_ucsborganizations() throws Exception {
+    @Test
+    public void logged_in_user_can_get_all_ucsborganizations() throws Exception {
 
-                // arrange
+            // arrange
 
-                UCSBOrganization skydiving = UCSBOrganization.builder()
-                    .orgCode("SKY")
-                    .orgTranslationShort("SKYDIVING CLUB")
-                    .orgTranslation("SKYDIVING CLUB AT UCSB")
-                    .inactive(false)
-                    .build();
+            UCSBOrganization skydiving = UCSBOrganization.builder()
+                .orgCode("SKY")
+                .orgTranslationShort("SKYDIVING CLUB")
+                .orgTranslation("SKYDIVING CLUB AT UCSB")
+                .inactive(false)
+                .build();
 
-                UCSBOrganization sigmanu = UCSBOrganization.builder()
-                    .orgCode("SNU")
-                    .orgTranslationShort("SIGMA NU")
-                    .orgTranslation("SIGMA NU FRATERNITY")
-                    .inactive(true)
-                    .build();
+            UCSBOrganization sigmanu = UCSBOrganization.builder()
+                .orgCode("SNU")
+                .orgTranslationShort("SIGMA NU")
+                .orgTranslation("SIGMA NU FRATERNITY")
+                .inactive(true)
+                .build();
 
-                ArrayList<UCSBOrganization> expectedOrgs = new ArrayList<>();
-                expectedOrgs.addAll(Arrays.asList(skydiving, sigmanu));
+            ArrayList<UCSBOrganization> expectedOrgs = new ArrayList<>();
+            expectedOrgs.addAll(Arrays.asList(skydiving, sigmanu));
 
-                when(ucsbOrganizationRepository.findAll()).thenReturn(expectedOrgs);
+            when(ucsbOrganizationRepository.findAll()).thenReturn(expectedOrgs);
 
-                // act
-                MvcResult response = mockMvc.perform(get("/api/ucsborganizations/all"))
-                                .andExpect(status().isOk()).andReturn();
+            // act
+            MvcResult response = mockMvc.perform(get("/api/ucsborganizations/all"))
+                            .andExpect(status().isOk()).andReturn();
 
-                // assert
+            // assert
 
-                verify(ucsbOrganizationRepository, times(1)).findAll();
-                String expectedJson = mapper.writeValueAsString(expectedOrgs);
-                String responseString = response.getResponse().getContentAsString();
-                assertEquals(expectedJson, responseString);
-        }
+            verify(ucsbOrganizationRepository, times(1)).findAll();
+            String expectedJson = mapper.writeValueAsString(expectedOrgs);
+            String responseString = response.getResponse().getContentAsString();
+            assertEquals(expectedJson, responseString);
+    }
+    
 }
-
-///SKY 	SKYDIVING CLUB 	SKYDIVING CLUB AT UCSB 	false
