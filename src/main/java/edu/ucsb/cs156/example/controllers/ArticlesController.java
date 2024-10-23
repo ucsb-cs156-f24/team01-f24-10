@@ -127,7 +127,6 @@ public class ArticlesController extends ApiController {
 		Articles article = articlesRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 
-		article.setId(incoming.getId());
 		article.setTitle(incoming.getTitle());
 		article.setUrl(incoming.getUrl());
 		article.setExplanation(incoming.getExplanation());
