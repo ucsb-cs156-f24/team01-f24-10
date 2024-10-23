@@ -125,7 +125,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
 		// arrange
 
 		LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
-		Articles article1 = Articles.builder().id(0L).title("TestTitle").url("ajayliu.com")
+		Articles article1 = Articles.builder().title("TestTitle").url("ajayliu.com")
 				.explanation("TestExplanation")
 				.email("test@email.com").dateAdded(ldt1).build();
 

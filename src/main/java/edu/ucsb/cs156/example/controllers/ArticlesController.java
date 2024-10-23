@@ -90,7 +90,7 @@ public class ArticlesController extends ApiController {
 			@Parameter(name = "url") @RequestParam String url,
 			@Parameter(name = "explanation") @RequestParam String explanation,
 			@Parameter(name = "email") @RequestParam String email,
-			@Parameter(name = "dateAdded (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
+			@Parameter(name = "dateAdded", description = "date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
 			throws JsonProcessingException {
 
 		// For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
