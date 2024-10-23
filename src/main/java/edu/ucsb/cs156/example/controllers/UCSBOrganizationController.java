@@ -45,8 +45,8 @@ public class UCSBOrganizationController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<UCSBOrganization> allOrganisations() {
-        Iterable<UCSBOrganization> commons = ucsbOrganizationRepository.findAll();
-        return commons;
+        Iterable<UCSBOrganization> organizations = ucsbOrganizationRepository.findAll();
+        return organizations;
     }
 
     /**
@@ -57,10 +57,6 @@ public class UCSBOrganizationController extends ApiController {
      * @param inactive whether or not the organization is inactive
      * @return the saved ucsborganizations
      */
-    private String orgCode;
-    private String orgTranslationShort;
-    private String orgTranslation;
-    private boolean inactive;
 
     @Operation(summary= "Create a new organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
