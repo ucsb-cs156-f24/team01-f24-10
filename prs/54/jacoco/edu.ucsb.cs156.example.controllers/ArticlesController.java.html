@@ -127,15 +127,14 @@ import java.time.LocalDateTime;
 <span class="fc" id="L127">		Articles article = articlesRepository.findById(id)</span>
 <span class="fc" id="L128">				.orElseThrow(() -&gt; new EntityNotFoundException(Articles.class, id));</span>
 
-<span class="fc" id="L130">		article.setId(incoming.getId());</span>
-<span class="fc" id="L131">		article.setTitle(incoming.getTitle());</span>
-<span class="fc" id="L132">		article.setUrl(incoming.getUrl());</span>
-<span class="fc" id="L133">		article.setExplanation(incoming.getExplanation());</span>
-<span class="fc" id="L134">		article.setEmail(incoming.getEmail());</span>
+<span class="fc" id="L130">		article.setTitle(incoming.getTitle());</span>
+<span class="fc" id="L131">		article.setUrl(incoming.getUrl());</span>
+<span class="fc" id="L132">		article.setExplanation(incoming.getExplanation());</span>
+<span class="fc" id="L133">		article.setEmail(incoming.getEmail());</span>
 
-<span class="fc" id="L136">		articlesRepository.save(article);</span>
+<span class="fc" id="L135">		articlesRepository.save(article);</span>
 
-<span class="fc" id="L138">		return article;</span>
+<span class="fc" id="L137">		return article;</span>
 	}
 
 	/**
@@ -149,11 +148,11 @@ import java.time.LocalDateTime;
 	@DeleteMapping(&quot;&quot;)
 	public Object deleteArticle(
 			@Parameter(name = &quot;id&quot;) @RequestParam Long id) {
-<span class="fc" id="L152">		Articles ucsbDate = articlesRepository.findById(id)</span>
-<span class="fc" id="L153">				.orElseThrow(() -&gt; new EntityNotFoundException(Articles.class, id));</span>
+<span class="fc" id="L151">		Articles ucsbDate = articlesRepository.findById(id)</span>
+<span class="fc" id="L152">				.orElseThrow(() -&gt; new EntityNotFoundException(Articles.class, id));</span>
 
-<span class="fc" id="L155">		articlesRepository.delete(ucsbDate);</span>
-<span class="fc" id="L156">		return genericMessage(&quot;Article with id %s deleted&quot;.formatted(id));</span>
+<span class="fc" id="L154">		articlesRepository.delete(ucsbDate);</span>
+<span class="fc" id="L155">		return genericMessage(&quot;Article with id %s deleted&quot;.formatted(id));</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
