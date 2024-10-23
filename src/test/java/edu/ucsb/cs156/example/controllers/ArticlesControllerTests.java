@@ -196,6 +196,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
 
 		Articles articleOriginal = Articles.builder().title("TestTitle").url("ajayliu.com").dateAdded(ldt1)
 				.email("a@b.com").explanation("expl").build();
+		articleOriginal.setId(123L);
 
 		Articles articleEdited = Articles.builder().title("TestTitle2").url("ajayliu2.com").dateAdded(ldt1)
 				.email("b@a.com").explanation("expl2").build();
