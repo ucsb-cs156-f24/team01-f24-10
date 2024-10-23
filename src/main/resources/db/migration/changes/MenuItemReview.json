@@ -2,7 +2,7 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "MenuItemReviews-1",
+          "id": "MenuItemReviews-2",
           "author": "DerrickL",
           "preConditions": [
             {
@@ -12,7 +12,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "MENUITEMREVIEWS"
+                    "tableName": "menuitemreview"
                   }
                 }
               ]
@@ -27,7 +27,7 @@
                       "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "MENUITEMREVIEW_PK"
+                        "primaryKeyName": "MENUITEMREVIEW_PK1"
                       },
                       "name": "ID",
                       "type": "BIGINT"
@@ -64,7 +64,7 @@
                     }
                   }
                 ],
-                "tableName": "MENUITEMREVIEWS"
+                "tableName": "menuitemreview"
               }
             }
           ]
