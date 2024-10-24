@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import java.time.LocalDateTime;
+import edu.ucsb.cs156.example.entities.MenuItemReview;
 
 /**
  * This is a REST controller for MenuItemReview
@@ -43,7 +44,7 @@ public class MenuItemReviewController extends ApiController {
     MenuItemReviewRepository menuItemReviewRepository;
 
     /**
-     * List all menuitemreviews
+     * List all UCSB dates
      * 
      * @return an iterable of UCSBDate
      */
@@ -51,12 +52,15 @@ public class MenuItemReviewController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<MenuItemReview> allMenuItemReviews() {
+        // if (menuItemReviewRepository.findAll() != ){
+
+        // }
         Iterable<MenuItemReview> review = menuItemReviewRepository.findAll();
         return review;
     }
 
     /**
-     * Get a single menuitemreview by id
+     * Get a single date by id
      * 
      * @param id the id of the menuitemreview
      * @return a menuitemreview
@@ -73,7 +77,7 @@ public class MenuItemReviewController extends ApiController {
     }
 
     /**
-     * Create a new menuitemreview
+     * Create a new menu item review
      * 
      * @param itemId        id of the menu item
      * @param reviewerEmail email of the reviewer
@@ -108,23 +112,5 @@ public class MenuItemReviewController extends ApiController {
         MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(menuItemReview);
 
         return savedMenuItemReview;
-    }
-
-    /**
-     * Delete a menuitemreview
-     * 
-     * @param id the id of the menuitemreview to delete
-     * @return a message indicating the menuitemreview was deleted
-     */
-    @Operation(summary= "Delete a menuitemreview")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("")
-    public Object deleteMenuItemReview(
-            @Parameter(name="id") @RequestParam Long id) {
-                MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
-
-        menuItemReviewRepository.delete(menuItemReview);
-        return genericMessage("menuitemreview with id %s deleted".formatted(id));
     }
 }
