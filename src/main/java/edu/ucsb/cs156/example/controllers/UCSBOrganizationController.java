@@ -110,7 +110,7 @@ public class UCSBOrganizationController extends ApiController {
             @RequestBody @Valid UCSBOrganization incoming) {
 
         UCSBOrganization organization = ucsbOrganizationRepository.findById(orgCode)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommons.class, orgCode));
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
 
 
         organization.setOrgTranslationShort(incoming.getOrgTranslationShort());
