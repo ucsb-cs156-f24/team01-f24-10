@@ -28,6 +28,7 @@
                                             "primaryKey": true,
                                             "primaryKeyName": "ARTICLES_PK"
                                         },
+                                        "autoIncrement": true,
                                         "name": "ID",
                                         "type": "BIGINT"
                                     }
