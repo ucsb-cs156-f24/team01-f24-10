@@ -252,4 +252,66 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
         Map<String, Object> json = responseToJson(response);
         assertEquals("UCSBOrganization with id CCC not found", json.get("message"));
     }
+
+    // Delete tests
+
+    @Test
+    public void logged_out_users_cannot_delete() throws Exception {
+        mockMvc.perform(delete("/api/ucsborganizations/delete"))
+            .andExpect(status().is(403));
+    }
+
+    @WithMockUser(roles = { "USER" })
+    @Test
+    public void logged_in_regular_users_cannot_delete() throws Exception {
+        mockMvc.perform(delete("/api/ucsborganizations/delete"))
+            .andExpect(status().is(403)); // only admins can post
+    }
+
+    @WithMockUser(roles = { "ADMIN", "USER" })
+    @Test
+    public void admin_tries_to_delete_non_existant_orgnization_and_gets_right_error_message() throws Exception {
+        // arrange
+
+        when(ucsbOrganizationRepository.findById(eq("CCC"))).thenReturn(Optional.empty());
+
+        // act
+        MvcResult response = mockMvc.perform(
+            delete("/api/ucsborganizations?orgCode=CCC")
+                            .with(csrf()))
+            .andExpect(status().isNotFound()).andReturn();
+
+        // assert
+        verify(ucsbOrganizationRepository, times(1)).findById("CCC");
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("UCSBOrganization with id CCC not found", json.get("message"));
+    }
+
+    @WithMockUser(roles = { "ADMIN", "USER" })
+    @Test
+    public void admin_can_delete_an_orgnization() throws Exception {
+        // arrange
+        UCSBOrganization skydiving = UCSBOrganization.builder()
+            .orgCode("SKY")
+            .orgTranslationShort("SKYDIVING CLUB")
+            .orgTranslation("SKYDIVING CLUB AT UCSB")
+            .inactive(false)
+            .build();
+
+        when(ucsbOrganizationRepository.findById(eq("SKY"))).thenReturn(Optional.of(skydiving));
+
+        // act
+        MvcResult response = mockMvc.perform(
+            delete("/api/ucsborganizations?orgCode=SKY")
+                            .with(csrf()))
+            .andExpect(status().isOk()).andReturn();
+        
+        // assert
+        verify(ucsbOrganizationRepository, times(1)).findById("SKY");
+        verify(ucsbOrganizationRepository, times(1)).delete(any());
+
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("UCSBOrganization with id SKY deleted", json.get("message"));
+    }
+
 }
