@@ -121,4 +121,21 @@ public class UCSBOrganizationController extends ApiController {
 
         return organization;
     }
+
+    /**
+     * Delete a diningcommons. Accessible only to users with the role "ROLE_ADMIN".
+     * @param code code of the commons
+     * @return a message indiciating the commons was deleted
+     */
+    @Operation(summary= "Delete a UCSBDiningCommons")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteCommons(
+            @Parameter(name="code") @RequestParam String code) {
+        UCSBDiningCommons commons = ucsbDiningCommonsRepository.findById(code)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommons.class, code));
+
+        ucsbDiningCommonsRepository.delete(commons);
+        return genericMessage("UCSBDiningCommons with id %s deleted".formatted(code));
+    }
 }
