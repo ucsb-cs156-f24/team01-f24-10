@@ -2,7 +2,7 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "RecommendationRequest-1",
+          "id": "RecommendationRequest-2",
           "author": "AneeshG",
           "preConditions": [
             {
@@ -27,7 +27,7 @@
                       "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "CONSTRAINT_5"
+                        "primaryKeyName": "RECOMMENDATIONREQUESTS_PK"
                       },
                       "name": "ID",
                       "type": "BIGINT"
