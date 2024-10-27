@@ -57,7 +57,7 @@ public class MenuItemReviewController extends ApiController {
     }
 
     /**
-     * Get a single date by id
+     * Get a single menuitemreview by id
      * 
      * @param id the id of the menuitemreview
      * @return a menuitemreview
@@ -136,22 +136,24 @@ public class MenuItemReviewController extends ApiController {
      * @param incoming the new menuitemreview
      * @return the updated menuitemreview object
      */
-    // @Operation(summary= "Update a single menuitemreview")
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
-    // @PutMapping("")
-    // public MenuItemReview updateMenuItemReview(
-    //         @Parameter(name="id") @RequestParam Long id,
-    //         @RequestBody @Valid MenuItemReview incoming) {
+    @Operation(summary= "Update a single menuitemreview")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public MenuItemReview updateMenuItemReview(
+            @Parameter(name="id") @RequestParam Long id,
+            @RequestBody @Valid MenuItemReview incoming) {
 
-    //     MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
-    //             .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+        MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
 
-    //     ucsbDate.setQuarterYYYYQ(incoming.getQuarterYYYYQ());
-    //     ucsbDate.setName(incoming.getName());
-    //     ucsbDate.setLocalDateTime(incoming.getLocalDateTime());
+                menuItemReview.setItemId(incoming.getItemId());
+                menuItemReview.setReviewerEmail(incoming.getReviewerEmail());
+                menuItemReview.setStars(incoming.getStars());
+                menuItemReview.setDateReviewed(incoming.getDateReviewed());
+                menuItemReview.setComments(incoming.getComments());
 
-    //     ucsbDateRepository.save(ucsbDate);
+        menuItemReviewRepository.save(menuItemReview);
 
-    //     return ucsbDate;
-    // }
+        return menuItemReview;
+    }
 }
