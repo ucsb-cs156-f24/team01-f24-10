@@ -116,5 +116,38 @@ import java.time.LocalDateTime;
 <span class="fc" id="L116">        return savedRecommendationRequest;</span>
     }
     
+    /**
+     * Update a single rec req
+     * 
+     * @param String requesterEmail;
+     * @param String professorEmail;
+     * @param String explanation;
+     * @param LocalDateTime dateRequested;
+     * @param LocalDateTime dateNeeded;
+     * @param boolean done;
+     * @return the saved recommendation req
+
+     */
+    @Operation(summary= &quot;Update a single Recommendation Request&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public RecommendationRequest updateRecommendationRequest(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id,
+            @RequestBody @Valid RecommendationRequest incoming) {
+
+<span class="fc" id="L138">        RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)</span>
+<span class="fc" id="L139">                .orElseThrow(() -&gt; new EntityNotFoundException(RecommendationRequest.class, id));</span>
+
+<span class="fc" id="L141">                recommendationRequest.setRequesterEmail(incoming.getRequesterEmail());</span>
+<span class="fc" id="L142">                recommendationRequest.setProfessorEmail(incoming.getProfessorEmail());</span>
+<span class="fc" id="L143">                recommendationRequest.setExplanation(incoming.getExplanation());</span>
+<span class="fc" id="L144">                recommendationRequest.setDateNeeded(incoming.getDateNeeded());</span>
+<span class="fc" id="L145">                recommendationRequest.setDateRequested(incoming.getDateRequested());</span>
+<span class="fc" id="L146">                recommendationRequest.setDone(incoming.getDone());</span>
+        
+<span class="fc" id="L148">                recommendationRequestRepository.save(recommendationRequest);</span>
+        
+<span class="fc" id="L150">                return recommendationRequest;</span>
+            }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
