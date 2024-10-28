@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 
 /**
- * This is a REST controller for UCSBDates
+ * This is a REST controller for req requests
  */
 
  @Tag(name = "RecommendationRequests")
@@ -58,7 +58,7 @@ public class RecommendationRequestsController extends ApiController {
     }
 
     /**
-     * Get a single date by id
+     * Get a single request by id
      * 
      * @param id the id of the rec req
      * @return a recommendation request
@@ -149,4 +149,23 @@ public class RecommendationRequestsController extends ApiController {
         
                 return recommendationRequest;
             }
+
+    /**
+     * Delete a Recommendation Request
+     * 
+     * @param id the id of the rec request to delete
+     * @return a message indicating the req request was deleted
+     */
+    @Operation(summary= "Delete a Recommendation Request")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteRecommendationRequest(
+            @Parameter(name="id") @RequestParam Long id) {
+        RecommendationRequest recRequest = recommendationRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
+
+        recommendationRequestRepository.delete(recRequest);
+        return genericMessage("RecommendationRequest with id %s deleted".formatted(id));
+    }
+
 }
