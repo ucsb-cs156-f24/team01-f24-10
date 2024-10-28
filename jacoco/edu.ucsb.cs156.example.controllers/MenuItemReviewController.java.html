@@ -57,7 +57,7 @@ import edu.ucsb.cs156.example.entities.MenuItemReview;
     }
 
     /**
-     * Get a single date by id
+     * Get a single menuitemreview by id
      * 
      * @param id the id of the menuitemreview
      * @return a menuitemreview
@@ -136,23 +136,25 @@ import edu.ucsb.cs156.example.entities.MenuItemReview;
      * @param incoming the new menuitemreview
      * @return the updated menuitemreview object
      */
-    // @Operation(summary= &quot;Update a single menuitemreview&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    // @PutMapping(&quot;&quot;)
-    // public MenuItemReview updateMenuItemReview(
-    //         @Parameter(name=&quot;id&quot;) @RequestParam Long id,
-    //         @RequestBody @Valid MenuItemReview incoming) {
+    @Operation(summary= &quot;Update a single menuitemreview&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public MenuItemReview updateMenuItemReview(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id,
+            @RequestBody @Valid MenuItemReview incoming) {
 
-    //     MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
-    //             .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));
+<span class="fc" id="L146">        MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)</span>
+<span class="fc" id="L147">                .orElseThrow(() -&gt; new EntityNotFoundException(MenuItemReview.class, id));</span>
 
-    //     ucsbDate.setQuarterYYYYQ(incoming.getQuarterYYYYQ());
-    //     ucsbDate.setName(incoming.getName());
-    //     ucsbDate.setLocalDateTime(incoming.getLocalDateTime());
+<span class="fc" id="L149">                menuItemReview.setItemId(incoming.getItemId());</span>
+<span class="fc" id="L150">                menuItemReview.setReviewerEmail(incoming.getReviewerEmail());</span>
+<span class="fc" id="L151">                menuItemReview.setStars(incoming.getStars());</span>
+<span class="fc" id="L152">                menuItemReview.setDateReviewed(incoming.getDateReviewed());</span>
+<span class="fc" id="L153">                menuItemReview.setComments(incoming.getComments());</span>
 
-    //     ucsbDateRepository.save(ucsbDate);
+<span class="fc" id="L155">        menuItemReviewRepository.save(menuItemReview);</span>
 
-    //     return ucsbDate;
-    // }
+<span class="fc" id="L157">        return menuItemReview;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
