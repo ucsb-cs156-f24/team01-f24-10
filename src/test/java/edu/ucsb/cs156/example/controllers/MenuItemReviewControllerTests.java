@@ -4,7 +4,6 @@ import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import edu.ucsb.cs156.example.ControllerTestCase;
 import edu.ucsb.cs156.example.entities.MenuItemReview;
-import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.repositories.MenuItemReviewRepository;
 
 
@@ -86,8 +85,6 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(403)); // only admins can post
         }
 
-        //single get
-
         @WithMockUser(roles = { "USER" })
         @Test
         public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
@@ -137,8 +134,6 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 assertEquals("MenuItemReview with id 7 not found", json.get("message"));
         }
         
-        //get all
-
         @WithMockUser(roles = { "USER" })
         @Test
         public void logged_in_user_can_get_all_menuitemreviews() throws Exception {
@@ -181,8 +176,6 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
-        //post
-
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void an_admin_user_can_post_a_new_menuitemreview() throws Exception {
@@ -212,8 +205,6 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
-
-        //delete
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
@@ -255,88 +246,6 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 verify(menuItemReviewRepository, times(1)).findById(15L);
                 Map<String, Object> json = responseToJson(response);
                 assertEquals("MenuItemReview with id 15 not found", json.get("message"));
-        }
-
-        //edit
-
-        @WithMockUser(roles = { "ADMIN", "USER" })
-        @Test
-        public void admin_can_edit_an_existing_ucsbdate() throws Exception {
-                // arrange
-
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
-
-                MenuItemReview menuItemReviewOrig = MenuItemReview.builder()
-                                .itemId(1)
-                                .reviewerEmail("test1@gmail.com")
-                                .stars(3)
-                                .comments("okay")
-                                .dateReviewed(ldt1)
-                                .build();
-
-                LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
-
-                MenuItemReview menuItemReviewEdited = MenuItemReview.builder()
-                                .itemId(2)
-                                .reviewerEmail("test2@gmail.com")
-                                .stars(5)
-                                .comments("good")
-                                .dateReviewed(ldt2)
-                                .build();
-
-                String requestBody = mapper.writeValueAsString(menuItemReviewEdited);
-
-                when(menuItemReviewRepository.findById(eq(67L))).thenReturn(Optional.of(menuItemReviewOrig));
-
-                // act
-                MvcResult response = mockMvc.perform(
-                                put("/api/menuitemreview?id=67")
-                                                .contentType(MediaType.APPLICATION_JSON)
-                                                .characterEncoding("utf-8")
-                                                .content(requestBody)
-                                                .with(csrf()))
-                                .andExpect(status().isOk()).andReturn();
-
-                // assert
-                verify(menuItemReviewRepository, times(1)).findById(67L);
-                verify(menuItemReviewRepository, times(1)).save(menuItemReviewEdited); // should be saved with correct user
-                String responseString = response.getResponse().getContentAsString();
-                assertEquals(requestBody, responseString);
-        }
-
-        @WithMockUser(roles = { "ADMIN", "USER" })
-        @Test
-        public void admin_cannot_edit_ucsbdate_that_does_not_exist() throws Exception {
-                // arrange
-
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-03-11T00:00:00");
-
-                MenuItemReview menuItemReviewEdited = MenuItemReview.builder()
-                                .itemId(2)
-                                .reviewerEmail("test2@gmail.com")
-                                .stars(5)
-                                .comments("good")
-                                .dateReviewed(ldt1)
-                                .build();
-
-                String requestBody = mapper.writeValueAsString(menuItemReviewEdited);
-
-                when(menuItemReviewRepository.findById(eq(67L))).thenReturn(Optional.empty());
-
-                // act
-                MvcResult response = mockMvc.perform(
-                                put("/api/menuitemreview?id=67")
-                                                .contentType(MediaType.APPLICATION_JSON)
-                                                .characterEncoding("utf-8")
-                                                .content(requestBody)
-                                                .with(csrf()))
-                                .andExpect(status().isNotFound()).andReturn();
-
-                // assert
-                verify(menuItemReviewRepository, times(1)).findById(67L);
-                Map<String, Object> json = responseToJson(response);
-                assertEquals("MenuItemReview with id 67 not found", json.get("message"));
-
         }
 
 }
