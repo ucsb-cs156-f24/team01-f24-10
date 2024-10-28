@@ -2,8 +2,8 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "UCSBDates-1",
-          "author": "MattP",
+          "id": "RecommendationRequest-1",
+          "author": "Aneesh",
           "preConditions": [
             {
               "onFail": "MARK_RAN"
@@ -12,7 +12,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBDATES"
+                    "tableName": "RECOMMENDATIONREQUESTS"
                   }
                 }
               ]
@@ -27,7 +27,7 @@
                       "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "UCSBDATES_PK"
+                        "primaryKeyName": "RECOMMENDATIONREQUESTS_PK"
                       },
                       "name": "ID",
                       "type": "BIGINT"
@@ -35,24 +35,42 @@
                   },
                   {
                     "column": {
-                      "name": "LOCAL_DATE_TIME",
+                      "name": "DATE_NEEDED",
                       "type": "TIMESTAMP"
                     }
                   },
                   {
                     "column": {
-                      "name": "NAME",
+                      "name": "DATE_REQUESTED",
+                      "type": "TIMESTAMP"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "REQUESTER_EMAIL",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "QUARTERYYYYQ",
+                      "name": "EXPLANATION",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "DONE",
+                      "type": "BOOLEAN"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "PROFESSOR_EMAIL",
                       "type": "VARCHAR(255)"
                     }
                   }
                 ],
-                "tableName": "UCSBDATES"
+                "tableName": "RECOMMENDATIONREQUESTS"
               }
             }
           ]
