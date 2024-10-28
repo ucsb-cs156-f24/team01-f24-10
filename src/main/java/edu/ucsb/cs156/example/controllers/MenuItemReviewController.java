@@ -44,17 +44,14 @@ public class MenuItemReviewController extends ApiController {
     MenuItemReviewRepository menuItemReviewRepository;
 
     /**
-     * List all UCSB dates
+     * List all MenuItemReviews
      * 
-     * @return an iterable of UCSBDate
+     * @return an iterable of MenuItemReviews
      */
     @Operation(summary= "List all menu item reviews")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<MenuItemReview> allMenuItemReviews() {
-        // if (menuItemReviewRepository.findAll() != ){
-
-        // }
         Iterable<MenuItemReview> review = menuItemReviewRepository.findAll();
         return review;
     }
@@ -113,4 +110,48 @@ public class MenuItemReviewController extends ApiController {
 
         return savedMenuItemReview;
     }
+
+    /**
+     * Delete a menuitemreview
+     * 
+     * @param id the id of the menuitemreview to delete
+     * @return a message indicating the menuitemreview was deleted
+     */
+    @Operation(summary= "Delete a menuitemreview")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteMenuItemReview(
+            @Parameter(name="id") @RequestParam Long id) {
+                MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+        menuItemReviewRepository.delete(menuItemReview);
+        return genericMessage("menuitemreview with id %s deleted".formatted(id));
+    }
+
+
+    /**
+     * Update a menu item review
+     * 
+     * @param id       id of the menuitemreview to update
+     * @param incoming the new menuitemreview
+     * @return the updated menuitemreview object
+     */
+    // @Operation(summary= "Update a single menuitemreview")
+    // @PreAuthorize("hasRole('ROLE_ADMIN')")
+    // @PutMapping("")
+    // public MenuItemReview updateMenuItemReview(
+    //         @Parameter(name="id") @RequestParam Long id,
+    //         @RequestBody @Valid MenuItemReview incoming) {
+
+    //     MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
+    //             .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+
+    //     ucsbDate.setQuarterYYYYQ(incoming.getQuarterYYYYQ());
+    //     ucsbDate.setName(incoming.getName());
+    //     ucsbDate.setLocalDateTime(incoming.getLocalDateTime());
+
+    //     ucsbDateRepository.save(ucsbDate);
+
+    //     return ucsbDate;
+    // }
 }
