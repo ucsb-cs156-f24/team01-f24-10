@@ -227,7 +227,7 @@ public class RecommendationRequestsControllerTests extends ControllerTestCase {
                         .explanation("test1")
                         .dateRequested(ldt1)
                         .dateNeeded(ldt1)
-                        .done(true)
+                        .done(false)
                         .build();
 
                 RecommendationRequest recRequestEdited = RecommendationRequest.builder()
