@@ -86,7 +86,7 @@ public class RecommendationRequestsController extends ApiController {
      * @return the saved recommendation req
      */
     @Operation(summary= "Create a new rec req")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/post")
     public RecommendationRequest postRecommendationRequest(
             @Parameter(name="requesterEmail") @RequestParam String requesterEmail,
