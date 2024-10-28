@@ -2,8 +2,8 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "RecommendationRequest-2",
-          "author": "AneeshG",
+          "id": "RecommendationRequest-1",
+          "author": "Aneesh",
           "preConditions": [
             {
               "onFail": "MARK_RAN"
