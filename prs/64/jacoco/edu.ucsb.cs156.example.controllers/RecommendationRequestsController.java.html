@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 
 /**
- * This is a REST controller for UCSBDates
+ * This is a REST controller for req requests
  */
 
  @Tag(name = &quot;RecommendationRequests&quot;)
@@ -58,7 +58,7 @@ import java.time.LocalDateTime;
     }
 
     /**
-     * Get a single date by id
+     * Get a single request by id
      * 
      * @param id the id of the rec req
      * @return a recommendation request
@@ -149,5 +149,24 @@ import java.time.LocalDateTime;
         
 <span class="fc" id="L150">                return recommendationRequest;</span>
             }
+
+    /**
+     * Delete a Recommendation Request
+     * 
+     * @param id the id of the rec request to delete
+     * @return a message indicating the req request was deleted
+     */
+    @Operation(summary= &quot;Delete a Recommendation Request&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteRecommendationRequest(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L164">        RecommendationRequest recRequest = recommendationRequestRepository.findById(id)</span>
+<span class="fc" id="L165">                .orElseThrow(() -&gt; new EntityNotFoundException(RecommendationRequest.class, id));</span>
+
+<span class="fc" id="L167">        recommendationRequestRepository.delete(recRequest);</span>
+<span class="fc" id="L168">        return genericMessage(&quot;RecommendationRequest with id %s deleted&quot;.formatted(id));</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
