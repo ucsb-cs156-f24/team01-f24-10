@@ -77,12 +77,12 @@ public class RecommendationRequestsController extends ApiController {
     /**
      * Create a new rec req
      * 
-     * @param String requesterEmail;
-     * @param String professorEmail;
-    * @param String explanation;
-    * @param LocalDateTime dateRequested;
-    * @param LocalDateTime dateNeeded;
-    * @param boolean done;
+     * @param requesterEmail the email of the requester
+     * @param professorEmail the professor to request
+     * @param explanation the explanation
+     * @param dateRequested the date requested
+     * @param dateNeeded the date it is needed
+     * @param done is it done
      * @return the saved recommendation req
      */
     @Operation(summary= "Create a new rec req")
@@ -119,12 +119,8 @@ public class RecommendationRequestsController extends ApiController {
     /**
      * Update a single rec req
      * 
-     * @param String requesterEmail;
-     * @param String professorEmail;
-     * @param String explanation;
-     * @param LocalDateTime dateRequested;
-     * @param LocalDateTime dateNeeded;
-     * @param boolean done;
+     * @param id the id of the rec request to update
+     * @param incoming an object to copy from
      * @return the saved recommendation req
 
      */
