@@ -141,5 +141,23 @@ import java.time.LocalDateTime;
 
 <span class="fc" id="L142">        return helpRequest;</span>
     }
+    
+    /**
+     * Delete a HelpRequest
+     * 
+     * @param id the id of the request to delete
+     * @return a message indicating the request was deleted
+     */
+    @Operation(summary= &quot;Delete a HelpRequest&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteHelpRequest(
+            @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
+<span class="fc" id="L156">        HelpRequest helpRequest = helpRequestRepository.findById(id)</span>
+<span class="fc" id="L157">                .orElseThrow(() -&gt; new EntityNotFoundException(HelpRequest.class, id));</span>
+
+<span class="fc" id="L159">        helpRequestRepository.delete(helpRequest);</span>
+<span class="fc" id="L160">        return genericMessage(&quot;HelpRequest with id %s deleted&quot;.formatted(id));</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
