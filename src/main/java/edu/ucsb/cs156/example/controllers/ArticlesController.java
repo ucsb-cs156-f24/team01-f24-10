@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 
 /**
- * This is a REST controller for UCSBDates
+ * This is a REST controller for Articles
  */
 
 @Tag(name = "Articles")
@@ -90,7 +90,7 @@ public class ArticlesController extends ApiController {
 			@Parameter(name = "url") @RequestParam String url,
 			@Parameter(name = "explanation") @RequestParam String explanation,
 			@Parameter(name = "email") @RequestParam String email,
-			@Parameter(name = "dateAdded (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
+			@Parameter(name = "dateAdded", description = "date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded)
 			throws JsonProcessingException {
 
 		// For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -127,7 +127,6 @@ public class ArticlesController extends ApiController {
 		Articles article = articlesRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 
-		article.setId(incoming.getId());
 		article.setTitle(incoming.getTitle());
 		article.setUrl(incoming.getUrl());
 		article.setExplanation(incoming.getExplanation());
@@ -138,4 +137,21 @@ public class ArticlesController extends ApiController {
 		return article;
 	}
 
+	/**
+	 * Delete a Article
+	 * 
+	 * @param id the id of the article to delete
+	 * @return a message indicating the article was deleted
+	 */
+	@Operation(summary = "Delete a Article")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@DeleteMapping("")
+	public Object deleteArticle(
+			@Parameter(name = "id") @RequestParam Long id) {
+		Articles ucsbDate = articlesRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
+
+		articlesRepository.delete(ucsbDate);
+		return genericMessage("Article with id %s deleted".formatted(id));
+	}
 }
